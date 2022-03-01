@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 class Exam {
   String name;
-  String date;
-  String time;
+  DateTime date;
+  TimeOfDay time;
 
   Exam(this.name, this.date, this.time);
 

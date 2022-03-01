@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:organizer/calendar.dart';
 import 'package:organizer/exam.dart';
 import 'package:organizer/exam_card.dart';
 import 'package:organizer/exam_form.dart';
@@ -27,7 +28,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blueGrey,
       ),
-      home:  MyHomePage(title: 'My exam organizer'),
+      // home:  MyHomePage(title: 'My exam organizer'),
+      routes: {'/': (context)=> const MyHomePage(title: "My exam organizer"),
+                '/calendar': (context)=>Calendar()},
+        initialRoute: '/',
     );
   }
 }
@@ -54,7 +58,7 @@ class MyApp extends StatelessWidget {
 // }
 class MyHomePage extends StatelessWidget {
   final String title;
-  static List<Exam> elements = [Exam("Mobile Information systems", "07.12.2021", "16.00"),Exam("Data science", "08.12.2021", "08.00")];
+  static List<Exam> elements = [Exam("Mobile Information systems", DateTime.now(),TimeOfDay.now())];
 
 
   void addExam(Exam exam) {
@@ -68,6 +72,9 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        centerTitle: true,
+        // leading: IconButton(icon: const Icon(Icons.calendar_today), onPressed: () { Navigator.pushNamed(context, '/calendar'); }),
+        actions: [IconButton(icon: const Icon(Icons.calendar_today), onPressed: () { Navigator.pushNamed(context, '/calendar'); })],
       ),
       body: Column(children: [
         Row(children: const [
@@ -84,7 +91,8 @@ class MyHomePage extends StatelessWidget {
       Expanded(child: ListView.builder(itemCount: elements.length,itemBuilder: (contx,index) {
         return ExamCard(elements[index]);
       })),
-      ],));
+      ],)
+    );
   }
 
 
